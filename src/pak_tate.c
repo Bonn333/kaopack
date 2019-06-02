@@ -10,7 +10,6 @@ struct pak_tate_item_entry *pak_tate_readdir(FILE *pak)
     do {
         ret = fread(&item, sizeof(item), 1, pak);
         if (!ret) return 0;
-        printf("%.4s\n", item.magic);
     } while (strncmp(item.magic, PAK_TATE_ITEM_MAGIC, sizeof(item.magic)));
 
     return &item;

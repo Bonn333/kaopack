@@ -31,8 +31,9 @@ int pak_identify(FILE* fd)
     char pak_magic[4];
     if (!fd) return 0;
     /* Check if it's Kao 2 PAK */
-    fseek(fd, 0, SEEK_CUR);
+    fseek(fd, 0, SEEK_SET);
     fread(pak_magic, sizeof(pak_magic), 1, fd);
+    fseek(fd, 0, SEEK_SET);
     if (strncmp(pak_magic, PAK_TATE_MAGIC, sizeof(pak_magic)) == 0) return 2;
 
     return -1;
@@ -44,7 +45,7 @@ void tate_list_all(FILE* fd)
     struct pak_tate_item_entry *entry;
     while ((entry = pak_tate_readdir(fd)))
     {
-        printf(entry->name);
+        printf("%s\n", entry->name);
     }
 }
 
