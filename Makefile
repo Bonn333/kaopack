@@ -1,7 +1,7 @@
 PROG=kaopack
 
 CC=gcc
-CFLAGS=
+CFLAGS=-g -Wall -pedantic
 LD=gcc
 LDFLAGS=
 

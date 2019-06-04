@@ -2,7 +2,7 @@
 
 struct pak_t8fm_footer
 {
-    unsigned int file_count;
+    unsigned int files;
     unsigned int file_table_ptr;
     char magic[4];
 };
