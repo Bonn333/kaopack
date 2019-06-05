@@ -1,26 +1,26 @@
-PROG=kaopack
+BIN = kaopack
 
-CC=gcc
-CFLAGS=-g -Wall -pedantic
-LD=gcc
-LDFLAGS=
+CC = gcc
+CFLAGS = -g -Wall -pedantic
+LD = gcc
+LDFLAGS =
 
-SRCDIR := src
-OBJDIR := obj
-SRCS := $(wildcard $(SRCDIR)/*.c)
-OBJS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+SRCS = $(wildcard src/*.c)
+DEPS = $(wildcard deps/*/*.c)
+OBJS = $(SRCS:.c=.o)
+DEPOBJS = $(DEPS:.c=.o)
 
-all: $(PROG)
+.PHONY: all
+all: $(BIN)
 
-$(PROG): $(OBJS)
+$(BIN): $(OBJS) $(DEPOBJS)
 	$(LD) $^ -o $@ $(LDFLAGS)
 
-$(OBJS): $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) $< -c -o $@ -Ideps $(CFLAGS)
 
 .PHONY: clean
 clean:
-	-rm $(PROG)
+	-rm $(BIN)
 	-rm $(OBJS)
-	-rmdir $(OBJDIR)
+	-rm $(DEPOBJS)
