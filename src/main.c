@@ -245,7 +245,12 @@ int main(int argc, char *argv[])
             /* Make work directory */
             tate_header = pak_tate_get_header(input);
 
+
+            #ifdef __linux__
             ret = mkdir(tate_header->stream_name, 0777);
+            #else
+            ret = mkdir(tate_header->stream_name);
+            #endif
             chdir(tate_header->stream_name);
             getcwd(testpath, sizeof(testpath));
 
